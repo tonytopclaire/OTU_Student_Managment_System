@@ -1,0 +1,181 @@
+﻿<%@ Master Language="VB" CodeFile="Admin.master.vb" Inherits="Admin" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+	<title><%: Page.Title %>&nbsp;-Julie Thorp</title>
+	<!-- for-mobile-apps -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<!-- //for-mobile-apps -->
+	<link href="../content/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="../content/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="../content/mobile.css" rel="stylesheet" type="text/css" media="all" />
+	<!-- font-icons -->
+	<link href="../content/font-awesome.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Gidugu" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+	<!-- js -->
+	<script src="../js/jquery.tools.min.js"></script>
+	<script src="../js/jquery.mobile.custom.min.js"></script>
+	<script src="../js/jquery-2.2.3.min.js"></script>
+	<script src="../js/bootstrap.js"></script>
+	<script type="text/javascript" src="../js/move-top.js"></script>
+	<script type="text/javascript" src="../js/easing.js"></script>
+	<%--	<script type="text/javascript" src="../dist/jquery.validate.js"></script>
+	<script type="text/javascript" src="dist/jquery.validate.js"></script>
+	<script type="text/javascript" src="dist/jquery.mask.js"></script>--%>
+	<script type="text/javascript">
+		jQuery(document).ready(function ($) {
+			$(".scroll").click(function (event) {
+				event.preventDefault();
+				$('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+			});
+		});
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+
+			var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+			};
+
+			$().UItoTop({ easingType: 'easeOutQuart' });
+
+		});
+	</script>
+	<asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+</head>
+<body>
+	<form runat="server" id="validationForm">
+		<asp:ScriptManager runat="server">
+			<Scripts>
+				<asp:ScriptReference Name="jquery" />
+				<asp:ScriptReference Name="jquery.ui.combined" />
+			</Scripts>
+		</asp:ScriptManager>
+		<header>
+			<asp:AccessDataSource
+				ID="ADSContact"
+				runat="server"
+				DataSourceMode="DataSet"
+				DataFile="~/App_LocalResources/value.mdb"
+				SelectCommand="SELECT * FROM Contact"></asp:AccessDataSource>
+			<!-- //here ends scrolling icon -->
+			<!-- header -->
+			<div class="w3_navigation" id="ancher">
+				<div class="container">
+					<nav class="navbar navbar-default">
+						<!-- Brand and toggle get grouped for better mobile display -->
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+							<div class="logo">
+								<h2><a class="navbar-brand" href="../default.aspx"><span class="one">Group 7</span> - Admin Portals</a></h2>
+							</div>
+						</div>
+						<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+							<nav class="navbar navbar-default">
+								<nav class="cl-effect-1" id="cl-effect-1">
+									<ul class="nav navbar-nav">
+										<li><a href="../biography-admin.aspx">Bio.</a></li>
+										<li><a href="../contact-admin.aspx">Contact</a></li>
+										<li><a href="../pstudents-admin.aspx">Pros. Students</a></li>
+										<li><a href="../services-admin.aspx">Services</a></li>
+										<li><a href="../news-admin.aspx">News</a></li>
+										<li><a href="../pub-admin.aspx">Pub</a></li>
+										<li><a href="../research-admin.aspx">Research</a></li>
+										<li><a href="../teaching-admin.aspx">Teaching</a></li>
+										<li><a href="../group-admin.aspx">Group</a></li>
+									</ul>
+								</nav>
+								<!-- /.navbar-collapse -->
+							</nav>
+						</div>
+					</nav>
+				</div>
+			</div>
+		</header>
+		<div id="body">
+			<asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
+			<section class="content-wrapper main-content clear-fix">
+				<asp:ContentPlaceHolder runat="server" ID="MainContent" />
+			</section>
+		</div>
+		<footer>
+			<div class="w3l_footer">
+				<div class="container">
+					<div class="w3ls_footer_grids">
+						<div class="w3ls_footer_grid">
+							<div class="col-md-4 w3ls_footer_grid_left">
+								<div class="w3ls_footer_grid_leftl">
+									<i class="fa fa-map-marker" aria-hidden="true"></i>
+								</div>
+								<div class="w3ls_footer_grid_leftr text-center">
+									<h4>Location</h4>
+									<asp:FormView ID="FormView1" runat="server" DataKeyNames="ID" DataSourceID="ADSContact" CssClass="aspnet100">
+										<ItemTemplate>
+											<p class="aspText">
+												<asp:Label ID="addressLabel" runat="server" Text='<%# Bind("address") %>'/>
+											</p>
+										</ItemTemplate>
+									</asp:FormView>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="col-md-4 w3ls_footer_grid_left">
+								<div class="w3ls_footer_grid_leftl">
+									<i class="fa fa-envelope" aria-hidden="true"></i>
+								</div>
+								<div class="w3ls_footer_grid_leftr">
+									<h4>Email</h4>
+									<asp:FormView ID="FormView2" runat="server" DataKeyNames="ID" DataSourceID="ADSContact" CssClass="aspnet100">
+										<ItemTemplate>
+											<p class="aspText">
+												<asp:Label ID="emailLabel" runat="server" Text='<%# Bind("email") %>' />
+											</p>
+											<br />
+										</ItemTemplate>
+									</asp:FormView>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="col-md-4 w3ls_footer_grid_left">
+								<div class="w3ls_footer_grid_leftl">
+									<i class="fa fa-phone" aria-hidden="true"></i>
+								</div>
+								<div class="w3ls_footer_grid_leftr text-center">
+									<h4>Call Us</h4>
+									<asp:FormView ID="FormView3" runat="server" DataKeyNames="ID" DataSourceID="ADSContact" CssClass="aspnet100">
+										<ItemTemplate>
+											<p>
+												<asp:Label ID="phoneLabel" runat="server" Text='<%# Bind("phoneNumber") %>' />
+											</p>
+											<br />
+										</ItemTemplate>
+									</asp:FormView>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
+				<div class="w3l_footer_pos">
+					<p>© 2018 Tony Wang & Anthony Mitri. All Rights Reserved</p>
+				</div>
+			</div>
+		</footer>
+	</form>
+</body>
+</html>
+
